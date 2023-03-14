@@ -24,7 +24,9 @@ namespace BannerlordCheats.Patches.Combat
         {
             try
             {
-                if (attacker.IsPlayer()
+                if (attacker.TryGetHuman(out var agent)
+                    && agent.Origin.TryGetParty(out var party)
+                    && party.IsPlayerParty()
                     && SettingsManager.SliceThroughEveryone.IsChanged)
                 {
                     colReaction = MeleeCollisionReaction.SlicedThrough;
